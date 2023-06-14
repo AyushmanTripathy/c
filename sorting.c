@@ -107,9 +107,41 @@ void hashSort(int * arr, int length) {
   free(hash);
 }
 
+void maxHeapify(int * arr, int length, int i) {
+  int left = i * 2;
+  int right = (i * 2) + 1;
+  int largest = i;
+
+  if (length > left && arr[left] < arr[largest])
+    largest = left;
+  if (length > right && arr[right] < arr[largest])
+    largest = right;
+
+  if (largest != i) {
+    int tmp = arr[i];
+    arr[i] = arr[largest];
+    arr[largest] = tmp;
+    maxHeapify(arr, length, largest);
+  }
+}
+
+void heapSort(int * arr, int length) {
+  int * heap = (int *) malloc((length + 1) * sizeof(int));
+  for (int i = 0; i < length; i++) heap[i + 1] = arr[i];
+  for (int i = length / 2; i > 0; i--)
+    maxHeapify(heap, length + 1, i);
+
+  for(int i = 1; i < length; i++) {
+    int tmp = heap[1];
+    heap[1] = heap[length - i];
+    arr[i - 1] = tmp;
+    maxHeapify(heap, length - i, 1);
+  }
+}
+
 int main() {
-  int arr[] = { 2, 3, 6, 5, 1, 0 };
+  int arr[] = { 3, 2, 0 , 2, 4};
   int length = sizeof(arr) / sizeof(int);
-  hashSort(arr,length);
+  heapSort(arr, length);
   printArr(arr, length);
 }
