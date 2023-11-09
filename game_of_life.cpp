@@ -15,7 +15,7 @@ int main() {
   SDL_RenderSetScale(renderer, pixel_size, pixel_size);
 
   std::random_device dev;
-  std::uniform_int_distribution<int> nd(0,10);
+  std::uniform_int_distribution<int> nd(0,50);
 
   SDL_Event e;
   bool running = true, paused = false;
@@ -23,7 +23,7 @@ int main() {
 
   for (int i = 0; i < grid_size + 2; i++) {
     for (int j = 0; j < grid_size + 2; j++) {
-      int tmp = nd(dev) > 9 ? 1 : 0;
+      int tmp = nd(dev) > 45 ? 1 : 0;
       map[i][j] = tmp;
       prev[i][j] = tmp;
     }
@@ -50,9 +50,9 @@ int main() {
       }
     }
 
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
     for (int i = 1; i < grid_size; i++) {
       for (int j = 1; j < grid_size; j++) {
