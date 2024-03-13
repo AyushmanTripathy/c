@@ -7,6 +7,18 @@ void printArr(int * arr, int length) {
   printf("]\n");
 }
 
+void insertionSort(int * arr, int len) {
+  for (int i = 1; i < len; i++) {
+    int j = i;
+    int tmp = arr[i];
+    while (j > 0 && arr[j - 1] > tmp) {
+      arr[j] = arr[j - 1];
+      j--;
+    }
+    arr[j] = tmp;
+  }
+}
+
 void selectionSort(int * arr, int length) {
   int minValue, minIndex;
 
@@ -142,6 +154,6 @@ void heapSort(int * arr, int length) {
 int main() {
   int arr[] = { 3, 2, 0 , 2, 4};
   int length = sizeof(arr) / sizeof(int);
-  heapSort(arr, length);
+  insertionSort(arr, length);
   printArr(arr, length);
 }

@@ -60,7 +60,7 @@ int getFromHashmap(Hashmap * map, char * key) {
 }
 
 int main() {
-  Hashmap * map = initHashmap(3, 3);
+  Hashmap * map = initHashmap(13, 3);
   addToHashmap(map, "ayush", 12);
   printf("%d\n", getFromHashmap(map, "ayush"));
 }
