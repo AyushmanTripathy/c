@@ -1,8 +1,6 @@
 #include <SDL2/SDL.h>
 #include <random>
 #include <iostream>
-#include <limits.h>
-#include <stack>
 
 const int grid_size = 50;
 const int pixel_size = 20;

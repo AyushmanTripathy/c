@@ -23,7 +23,7 @@ int hashFunc(char * str, int size, int r) {
 
 Hashmap * initHashmap(int size, int r) {
   Hashmap * map = (Hashmap *) malloc(sizeof(Hashmap));
-  map->buckets = (Bucket **) malloc(size * sizeof(Bucket *));
+  map->buckets = (Bucket **) malloc(size * sizeof(Bucket *));\
   map->size = size;
   map->r = r;
   return map;

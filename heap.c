@@ -61,9 +61,20 @@ int pop(heap * h) {
 int main() {
   heap * h = init_heap(5);
   push(h, 10);
-  push(h, 50);
+  push(h, 5);
+  push(h, 3);
   push(h, 1);
+  push(h, 1);
+  push(h, 1);
+  push(h, 2);
 
+
+  printf("%d\n", pop(h));
+  printf("%d\n", pop(h));
+  printf("%d\n", pop(h));
+  printf("%d\n", pop(h));
+  printf("%d\n", pop(h));
+  printf("%d\n", pop(h));
   printf("%d\n", pop(h));
 
   printf("[");

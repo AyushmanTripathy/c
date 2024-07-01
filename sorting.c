@@ -54,11 +54,6 @@ void bubbleSort(int * arr, int length) {
   }
 }
 
-int append(int * arr, int index, int value) {
-  arr[index] = value;
-  return index + 1;
-}
-
 int *mergeSort(int * arr, int length) {
   if (length == 1) return arr;
   
@@ -66,30 +61,22 @@ int *mergeSort(int * arr, int length) {
   int * left = mergeSort(arr, divider);
   int * right = mergeSort(arr + divider, length - divider);
 
-  int new_arr[length];
+  int * new_arr = (int *) malloc(sizeof(int) * length);
+
   int index = 0, leftIndex = 0, rightIndex = 0;
 
   // merging
-  while(1) {
-    if (left[leftIndex] < right[rightIndex]) {
-      index = append(new_arr, index, left[leftIndex]);
-      leftIndex++;
-    } else {
-      index = append(new_arr, index, right[rightIndex]);
-      rightIndex++;
-    }
-    if (leftIndex == divider || rightIndex == length - divider) break; 
+  while(leftIndex < divider && rightIndex < length - divider) {
+    if (left[leftIndex] < right[rightIndex]) new_arr[index++] = left[leftIndex++];
+    else new_arr[index++] = right[rightIndex++];
   }
 
   // adding the leftover
-  if (leftIndex != divider) {
-    for (int i = leftIndex; i < divider; i++) 
-      index = append(new_arr, index, left[i]);
-  }
-  else if (rightIndex != length - divider) {
-    for (int i = rightIndex; i < length - divider; i++) 
-      index = append(new_arr, index, right[i]);
-  }
+  while (leftIndex < divider)
+    new_arr[index++] = left[leftIndex++];
+
+  while (rightIndex < length - divider)
+    new_arr[index++] = right[rightIndex++];
 
   // copy the data;
   for(int i = 0; i < length; i++) arr[i] = new_arr[i];
@@ -114,7 +101,8 @@ void hashSort(int * arr, int length) {
 
   int index = 0;
   for (int i = 0; i < hashLength; i++) {
-    for (int j = 0; j < hash[i]; j++) index = append(arr, index, i + min);
+    for (int j = 0; j < hash[i]; j++) 
+      arr[index++] = i + min;
   }
   free(hash);
 }
@@ -151,9 +139,33 @@ void heapSort(int * arr, int length) {
   }
 }
 
+void radixSort(int * arr, int length) {
+  int table[length][10];
+  int indcies[10] = {0};
+
+  int flag, fac = 1;
+  do {
+    for (int i = 0; i < length; i++) {
+      int j = (arr[i] % (fac * 10)) / fac;
+      table[indcies[j]++][j] = arr[i];
+    }
+
+    flag = 1;
+    int index = 0;
+    for (int i = 0; i < 10; i++) {
+      for (int j = 0; j < indcies[i]; j++)
+        arr[index++] = table[j][i];
+      if (indcies[i] == length) flag = 0;
+      indcies[i] = 0;
+    }
+
+    fac *= 10;
+  } while (flag);
+}
+
 int main() {
   int arr[] = { 3, 2, 0 , 2, 4};
   int length = sizeof(arr) / sizeof(int);
-  insertionSort(arr, length);
+  radixSort(arr, length);
   printArr(arr, length);
 }
