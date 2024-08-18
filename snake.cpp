@@ -155,7 +155,7 @@ int main() {
       head[0] += perms[i][0];
       head[1] += perms[i][1];
       if (!check_for_collision(curr, length, head)) {
-        float tmp_dist = distance(food, head[0]+perms[i][0], head[1]+perms[i][1]);
+        float tmp_dist = distance(food, head[0], head[1]);
         if (tmp_dist < min) {
           min = tmp_dist;
           dir = i;
